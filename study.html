@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+</head>
+<body>
+   <div class="box">
+       <p > <input type="text" name="" v-model="message"></p>
+       <p>{{message}}</p>
+       <br>
+
+         <!-- 循环 添加索引 -->
+         <p  v-for="(value,index,key) in arr" style="margin-left:5px;">{{index}} {{value,index}}</p>
+          <br>
+
+         <ul>
+              <li v-for="(item,index,key) in items">
+                {{ item.child }}  {{ index }} {{ key }}
+              </li>
+        </ul>
+        <br>
+   </div>
+</body>
+<!--<script type="text/javascript" src="js/vue.js"></script>-->
+<script src="js/vue.min.js"></script>
+<script type="text/javascript">
+
+var app = new Vue ({
+    el:'.box',
+    data:{
+       message: 'wwwww',
+       arr:['orange','pear','banana'],
+       items:[
+          {child:"orange"},
+          {child:"pear"},
+          {child:"banana"}
+       ]
+    }
+})
+</script>
+</html>
