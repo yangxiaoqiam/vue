@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
+      <script type="text/javascript" src="lib/jquery-1.12.4.min.js"></script>
+      <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="box">
+    <div class="container">
+        <br>
+        <form role="form">
+            <div class="form-group">
+                <label class="control-label">姓名</label>
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入姓名" v-model="username">
+            </div>
+            <div class="form-group">
+                <label class="control-label">年龄</label>
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入年龄" v-model="age">
+            </div>
+            <div class="form-group">
+                <input type="button" name="" value="添加" class="btn btn-primary" v-on:click="add()">
+                <input type="button" name="" value="删除" class="btn btn-danger">
+            </div>
+        </form>
+        <hr>
+        <table class="table">
+            <caption class="h2" style="text-align: center">用户信息表</caption>
+            <tr class="text-center">
+                <th>序号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>删除</th>
+            </tr>
+            <tr v-for="(item,index) in myDate">
+                <td>{{index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#layer" v-on:click="nowindex=index">删除</button>
+                </td>
+            </tr>
+            <tr v-show="myDate.length!=0">
+                <td colspan="4" class="text-right">
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#layer" v-on:click="nowindex=-3">删除全部</button>
+                </td>
+            </tr>
+            <tr v-show="myDate.length==0">
+                <td colspan="4" class="text-center">
+                    <p style="color: gray;font-size: 14px;">占无数据。。。。</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal modal1" role="dialog" id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times</span></button>
+                    <h4 class="modal-title">确认删除吗？</h4>
+                </div>
+                <div class="modal-body text-right">
+                    <button class="btn btn-primary" data-dismiss="modal">取消</button>
+                    <button class="btn btn-danger" data-dismiss="modal" v-on:click="delateMsg(nowindex)">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript">
+
+var app = new Vue ({
+    el:'.box',
+    data:{
+      myDate:[
+         
+      ],
+      username:'',
+      age:'',
+      nowindex:-1000
+    },
+    methods:{
+      add:function(){
+        this.myDate.push({
+          name:this.username,
+          age:this.age
+        });
+        this.username=' ',
+        this.age=' '
+      },
+     delateMsg:function(n){
+        if(n==-3){
+          this.myDate=[]
+        }
+        else{
+          this.myDate.splice(n,1)
+        }
+      }
+    }
+})
+</script>
+</html>

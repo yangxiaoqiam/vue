@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
+      <script type="text/javascript" src="lib/jquery-1.12.4.min.js"></script>
+      <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="box">
+    <p> {{ 'username' | currency }}</p>
+</div>
+</body>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/vue-resource.min.js"></script>
+<script type="text/javascript">
+
+var app = new Vue ({
+    el:'.box',
+    data:{
+      myDate:[
+         
+      ],
+      username:'aaaaaa',
+      age:'',
+      nowindex:-1000
+    },
+     filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  }
+})
+Vue.filter('currency', function(value, _currency, decimals) {  
+    value = parseFloat(value);  
+    if (!isFinite(value) || !value && value !== 0) return '';  
+    _currency = _currency != null ? _currency : '$';  
+    decimals = decimals != null ? decimals : 2;  
+    var stringified = Math.abs(value).toFixed(decimals);  
+    var _int = decimals ? stringified.slice(0, -1 - decimals) : stringified;  
+    var i = _int.length % 3;  
+    var head = i > 0 ? _int.slice(0, i) + (_int.length > 3 ? ',' : '') : '';  
+    var _float = decimals ? stringified.slice(-1 - decimals) : '';  
+    var sign = value < 0 ? '-' : '';  
+    var digitsRE = /(\d{3})(?=\d)/g;  
+    return sign + _currency + head + _int.slice(i).replace(digitsRE, '$1,') + _float;  
+}); 
+</script>
+</html>
